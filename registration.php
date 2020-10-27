@@ -6,6 +6,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Fanikioski_MageKey_CategoryListWidget',
+    'MageKey_CategoryListWidget',
     __DIR__
 );
