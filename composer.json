@@ -2,7 +2,7 @@
     "name": "fanikioski-magekey/module-category-list-widget",
     "description": "Magento 2 Category List",
     "type": "magento2-module",
-    "version": "2.1.11",
+    "version": "1.0",
     "require": {},
     "minimum-stability": "dev",
     "license": [
