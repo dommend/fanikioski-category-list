@@ -7,7 +7,7 @@
       "php": ">=5.6"
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
+    "prefer-stable": false,
     "license": [
         "MIT"
     ],
