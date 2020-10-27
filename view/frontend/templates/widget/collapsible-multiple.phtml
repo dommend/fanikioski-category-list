@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © MageKey. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+?>
+<?php
+/**
+ * Template for displaying category list node
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+
+if (($node = $block->getNode()) && $node->hasChildren()) {
+    $exists = true;
+    $level = (int)$node->getClwLevel();
+    $_decorator = $this->helper(\MageKey\CategoryListWidget\Helper\Decorator::class);
+}
+?>
+<?php if (isset($exists)) : ?>
+    <ul <?= /* @escapeNotVerified */ $_decorator->renderAttributes($node, ['list']) ?>>
+        <?php foreach ($node->getChildren() as $child) : ?>
+            <?php $child->setClwLevel($level + 1); ?>
+            <?php $child->setHasCollapsed($child->hasChildren()); ?>
+            <li <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['item']) ?>
+                <?php if ($child->getHasCollapsed()) : ?>
+                data-mage-init='{
+                    "collapsible":{
+                        "openedState": "active",
+                        "trigger": "> .clw-link-icon"
+                    }
+                }'
+                <?php endif; ?>>
+                <a <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['link']) ?>
+                   href="<?= /* @escapeNotVerified */ $child->getUrl() ?>" data-role="title">
+                    <?= /* @escapeNotVerified */ $child->getName() ?>
+                    <?php if ($child->getHasCollapsed()) : ?>
+                    <span <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['link-icon']) ?>></span>
+                    <?php endif; ?>
+                </a>
+                <?php if ($child->hasChildren()) : ?>
+                <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['container']) ?>
+                     data-role="content">
+                    <?= /* @escapeNotVerified */ $block->setNode($child)->toHtml() ?>
+                </div>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>

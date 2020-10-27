@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © MageKey. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="mgk_categorylistwidget" class="MageKey\CategoryListWidget\Block\Widget" is_email_compatible="true" ttl="86400">
+        <label translate="true">Category List</label>
+        <description translate="true">List of Categories</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true" sort_order="10">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="parent_category_path" xsi:type="block" visible="true" required="false" sort_order="20">
+                <label translate="true">Parent Category</label>
+                <description translate="true">Current Category of the current store will be used if not set.</description>
+                <block class="MageKey\CategoryListWidget\Block\Adminhtml\Category\WidgetChooser">
+                    <data>
+                        <item name="button" xsi:type="array">
+                            <item name="open" xsi:type="string" translate="true">Select Category...</item>
+                        </item>
+                    </data>
+                </block>
+            </parameter>
+            <parameter name="sort_by" xsi:type="select" required="false" visible="true" sort_order="25"
+                       source_model="MageKey\CategoryListWidget\Model\Config\Source\SortAttributes">
+                <label translate="true">Sort by Attribute</label>
+            </parameter>
+            <parameter name="recursion_level" xsi:type="text" visible="true" sort_order="30">
+                <label translate="true">Recursion Level</label>
+                <description translate="true">Leave empty to use all sub categories.</description>
+                <value>1</value>
+            </parameter>
+            <parameter name="display_mode" xsi:type="select" visible="true" required="true" sort_order="40"
+                       source_model="MageKey\CategoryListWidget\Model\TemplateHandler\PoolOptions">
+                <label translate="true">Display Mode</label>
+            </parameter>
+            
+            <!-- Template: inline_images -->
+            <parameter name="inline_images.image_attribute" xsi:type="select" required="true" visible="true" sort_order="45"
+                       source_model="MageKey\CategoryListWidget\Model\Config\Source\ImageAttributes">
+                <label translate="true">Image Attribute</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_images.columns_count" xsi:type="select" required="true" visible="true" sort_order="50"
+                       source_model="MageKey\CategoryListWidget\Model\Config\Source\ColumnsCount">
+                <label translate="true">Columns</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_images.image_width" xsi:type="text" required="false" visible="true" sort_order="55">
+                <label translate="true">Image Width</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_images.image_height" xsi:type="text" required="false" visible="true" sort_order="60">
+                <label translate="true">Image Height</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_images.view_button" xsi:type="text" required="false" visible="true" sort_order="70">
+                <label translate="true">View Button</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+                <value>View</value>
+            </parameter>
+
+            <!-- Template: inline_nested_images -->
+            <parameter name="inline_nested_images.image_attribute" xsi:type="select" required="true" visible="true" sort_order="45"
+                       source_model="MageKey\CategoryListWidget\Model\Config\Source\ImageAttributes">
+                <label translate="true">Image Attribute</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_nested_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_nested_images.columns_count" xsi:type="select" required="true" visible="true" sort_order="50"
+                       source_model="MageKey\CategoryListWidget\Model\Config\Source\ColumnsCount">
+                <label translate="true">Columns</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_nested_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_nested_images.image_width" xsi:type="text" required="false" visible="true" sort_order="55">
+                <label translate="true">Image Width</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_nested_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_nested_images.image_height" xsi:type="text" required="false" visible="true" sort_order="60">
+                <label translate="true">Image Height</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_nested_images" />
+                </depends>
+            </parameter>
+            <parameter name="inline_nested_images.view_button" xsi:type="text" required="false" visible="true" sort_order="70">
+                <label translate="true">View Button</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_nested_images" />
+                </depends>
+                <value>View All</value>
+            </parameter>
+
+            <parameter name="template" xsi:type="select" visible="true" required="true" sort_order="100">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="MageKey_CategoryListWidget::widget.phtml" selected="true">
+                        <label translate="true">Category List Container</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

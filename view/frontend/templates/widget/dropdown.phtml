@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © MageKey. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+?>
+<?php
+/**
+ * Template for displaying category list node
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+
+if (($node = $block->getNode()) && $node->hasChildren()) {
+    $exists = true;
+    $level = (int)$node->getClwLevel();
+    $_decorator = $this->helper(\MageKey\CategoryListWidget\Helper\Decorator::class);
+}
+?>
+<?php if (isset($exists)) : ?>
+
+    <select <?= /* @escapeNotVerified */ $_decorator->renderAttributes($node, ['list']) ?> onchange="javascript:location.href = this.value;">
+        <option>Valitse</option>
+        <option>--------</option>
+        <?php foreach ($node->getChildren() as $child) : ?>
+            <?php $child->setClwLevel($level + 1); ?>
+            <option <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['item']) ?> value="<?= /* @escapeNotVerified */ $child->getUrl() ?>">
+                    <?= /* @escapeNotVerified */ $child->getName() ?>
+                <?= /* @escapeNotVerified */ $block->setNode($child)->toHtml() ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+<?php endif; ?>
