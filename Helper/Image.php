@@ -16,7 +16,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * Module name
      */
-    const MODULE_NAME = 'MageKey_CategoryListWidget';
+    const MODULE_NAME = 'Fanikioski_MageKey_CategoryListWidget';
 
     /**
      * Default placeholder

@@ -38,7 +38,7 @@
                        source_model="MageKey\CategoryListWidget\Model\TemplateHandler\PoolOptions">
                 <label translate="true">Display Mode</label>
             </parameter>
-            
+
             <!-- Template: inline_images -->
             <parameter name="inline_images.image_attribute" xsi:type="select" required="true" visible="true" sort_order="45"
                        source_model="MageKey\CategoryListWidget\Model\Config\Source\ImageAttributes">
@@ -112,7 +112,7 @@
             <parameter name="template" xsi:type="select" visible="true" required="true" sort_order="100">
                 <label translate="true">Template</label>
                 <options>
-                    <option name="default" value="MageKey_CategoryListWidget::widget.phtml" selected="true">
+                    <option name="default" value="Fanikioski_MageKey_CategoryListWidget::widget.phtml" selected="true">
                         <label translate="true">Category List Container</label>
                     </option>
                 </options>
