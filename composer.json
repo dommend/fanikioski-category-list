@@ -3,7 +3,8 @@
     "description": "Magento 2 Category List",
     "type": "magento2-module",
     "version": "2.1.11",
-    "minimum-stability": "dev",
+    "require": {},
+    "minimum-stability": "dev"
     "license": [
         "MIT"
     ],
