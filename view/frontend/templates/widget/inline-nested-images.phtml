@@ -31,8 +31,7 @@ if (($node = $block->getNode()) && $node->hasChildren()) {
     $imageStyle = 'width:' . $imageAttr['width'] . 'px;';
     $imageStyle .= 'height:' . $imageAttr['height'] . 'px;';
 
-    $_decorator = $this->helper(\MageKey\CategoryListWidget\Helper\Decorator::class);
-}
+    $_decorator = $this->helper(\MageKey\CategoryListWidget\Helper\Decorator::class);}
 ?>
 <?php if (isset($exists)) : ?>
     <ul <?= /* @escapeNotVerified */ $_decorator->renderAttributes($node, ['list', 'columns-' . $columnsCount]) ?>>

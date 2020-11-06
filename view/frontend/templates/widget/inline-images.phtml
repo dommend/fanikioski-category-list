@@ -5,12 +5,16 @@
  */
 
 ?>
+
 <?php
 /**
  * Template for displaying category list node
  *
+ *
  * @var $block \Magento\Framework\View\Element\Template
+ *
  */
+
 
 if (($node = $block->getNode()) && $node->hasChildren()) {
     $exists = true;
@@ -19,6 +23,7 @@ if (($node = $block->getNode()) && $node->hasChildren()) {
     $options = $block->getOptions();
     $imageAttribute = $options->getData('image_attribute') ?: 'image';
     $columnsCount = (int)$options->getData('columns_count');
+    $listCount = (int)$options->getData('list_count');
     $viewButton = (string)$options->getData('view_button');
 
     $_imageHelper = $this->helper(\MageKey\CategoryListWidget\Helper\Image::class);
@@ -32,33 +37,61 @@ if (($node = $block->getNode()) && $node->hasChildren()) {
     $imageStyle .= 'height:' . $imageAttr['height'] . 'px;';
 
     $_decorator = $this->helper(\MageKey\CategoryListWidget\Helper\Decorator::class);
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+
+    $listOfItems = $node->getChildren();
+    ###
+    #->addOrder('name', Varien_Data_Collection::SORT_ORDER_ASC);
+
+    if ($listCount === 0) {
+        $listCount = -1;
+    }
 }
 ?>
+
 <?php if (isset($exists)) : ?>
     <?php if (!$level) : ?>
     <ul <?= /* @escapeNotVerified */ $_decorator->renderAttributes($node, ['list', 'columns-' . $columnsCount]) ?>>
     <?php endif; ?>
-        <?php foreach ($node->getChildren() as $child) : ?>
-            <?php $child->setClwLevel($level + 1); ?>
-            <li <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['item']) ?>>
-                <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['container']) ?>>
-                    <a <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['link']) ?>
+
+
+
+        <?php
+            $i=0;
+            foreach ($listOfItems as $child) : if (++$i == $listCount) break;
+        ?>
+
+            <?php $child->setClwLevel($level + 1) ; ?>
+                <li <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['item']) ?>>
+                <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['container']) ?>
+                    <?php if ($child->getImage()) {
+                        echo "style='background-image: url(".$child->getImage().");'";
+                    } ?>
+                  >
+                    <div class="clw-innercontainer">
+                    <h3><a <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['link']) ?>
                        href="<?= /* @escapeNotVerified */ $child->getUrl() ?>">
-                        <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['image']) ?>
-                             style="<?= /* @escapeNotVerified */ $imageStyle ?>">
-                            <img alt="<?= /* @escapeNotVerified */ $child->getName() ?>"
-                                 src="<?= /* @escapeNotVerified */ $_imageHelper->getImage('catalog/category/' . $child->getData($imageAttribute), $image, $imageAttr) ?>" />
-                        </div>
-                        <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['name']) ?>><?= /* @escapeNotVerified */ $child->getName() ?></div>
-                    </a>
+                        <?= /* @escapeNotVerified */ $child->getName() ?>
+                    </a></h3>
+
+                    <?php
+                    $categoryId = $child->getID();
+                    $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $object_manager = $_objectManager->create('Magento\Catalog\Model\Category')->load($categoryId);
+                    $categoryDescription = $object_manager->getData("description");
+                    echo ($categoryDescription);
+                    ?>
+
                     <?php if ($viewButton) : ?>
                     <div <?= /* @escapeNotVerified */ $_decorator->renderAttributes($child, ['actions']) ?>>
-                        <a class="action primary <?= /* @escapeNotVerified */ $_decorator->renderClass($child, ['action']) ?>"
+                        <a class="button small <?= /* @escapeNotVerified */ $_decorator->renderClass($child, ['action']) ?>"
                            href="<?= /* @escapeNotVerified */ $child->getUrl() ?>">
                             <?= /* @escapeNotVerified */ __($viewButton) ?>
                         </a>
                     </div>
                     <?php endif; ?>
+                    </div>
                 </div>
             </li>
             <?= /* @escapeNotVerified */ $block->setNode($child)->toHtml() ?>

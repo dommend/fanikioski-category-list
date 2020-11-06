@@ -17,6 +17,8 @@ class Pool
 
     const FIELD_SOURCE = 'source';
 
+
+
     /**
      * @var ObjectManagerInterface
      */
@@ -94,6 +96,7 @@ class Pool
     public function getSource($value, $field = null)
     {
         $sources = $this->getSources($value, $field);
+
         return array_shift($sources);
     }
 
@@ -116,7 +119,8 @@ class Pool
                 $this->_instances[$code] = $this->sourceFactory->create(
                     $sourceClass,
                     [
-                        'data' => $source
+                        'data' => $source,
+
                     ]
                 );
             }

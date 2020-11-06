@@ -31,6 +31,8 @@ class PoolOptions implements \Magento\Framework\Option\ArrayInterface
             $options[] = [
                 'value' => $sourceInstance->getCode(),
                 'label' => $sourceInstance->getTitle(),
+
+
             ];
         }
 

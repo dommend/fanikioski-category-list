@@ -30,7 +30,7 @@ class SortAttributes implements \Magento\Framework\Option\ArrayInterface
             'label' => ' --- Sort by Position --- ',
             'value' => '',
         ];
-        
+
         $attributes = $this->eavConfig->getAttributes(\Magento\Catalog\Model\Category::ENTITY);
         foreach ($attributes as $attribute) {
             if ($attribute->getData('frontend_input') == 'text'
@@ -41,7 +41,7 @@ class SortAttributes implements \Magento\Framework\Option\ArrayInterface
                 ];
             }
         }
-        
+
         return $options;
     }
 }

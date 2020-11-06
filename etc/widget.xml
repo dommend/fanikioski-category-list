@@ -74,6 +74,13 @@
                 <value>View</value>
             </parameter>
 
+            <parameter name="inline_images.list_count" xsi:type="text" required="false" visible="true" sort_order="75">
+                <label translate="true">List of Items</label>
+                <depends>
+                    <parameter name="display_mode" value="inline_images" />
+                </depends>
+            </parameter>
+
             <!-- Template: inline_nested_images -->
             <parameter name="inline_nested_images.image_attribute" xsi:type="select" required="true" visible="true" sort_order="45"
                        source_model="MageKey\CategoryListWidget\Model\Config\Source\ImageAttributes">
